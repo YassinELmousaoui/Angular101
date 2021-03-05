@@ -1,0 +1,30 @@
+<form #myForm="ngForm" (ngSubmit)="handelAddPassenger(myForm)" class="form">
+    <label for="full-name">full Name </label>
+    <input name="fullName" id="full-name" type="text" placeholder="full name" ngModel >
+    <br/>
+    <br/>
+    <label for="checked-in">checked in :</label>
+    <input name="checkedIn" id="checked-in" type="checkbox"  ngModel >
+    <br/>
+    <br/>
+    <label for="check-in-date">check In Date : </label>
+    <input type="date" name="checkInDate" id="check-in-date" ngModel>
+    <br/>
+    <br/>
+    <input type="button" value="Add child " (click)="addChild()" >
+    <br/>
+    <br/>
+    <div  *ngFor="let item of childrensCount let i = index">
+        child {{i}}
+        <label for="child-name"> Name : </label>
+        <input name="childName-{{i}}"  id="child-name" type="text"  ngModel >
+        
+        <label for="child-age"> Age :</label>
+        <input name="childAge-{{i}}" id="child-age" type="number"  ngModel >
+    <br/>
+    <br>
+</div>
+    <br>
+    <br/>
+    <input type="submit" value="add Passenger">
+  </form>

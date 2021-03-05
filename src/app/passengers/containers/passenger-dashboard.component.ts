@@ -10,6 +10,7 @@ import { PassengerService } from "../passenger.service";
   template: `
     <h3>AirLine passengers</h3>
     <passenger-counter [items]="passengers"></passenger-counter>
+    
     <div class="list">
       <passenger-list
         *ngFor="let passenger of passengers"

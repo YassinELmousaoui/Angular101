@@ -27,6 +27,10 @@ export class PassengerService {
     return this.http.delete(`${URL}/${id}` , this.customOptions());
   }  
 
+  addPassenger(passenger: Passenger):Observable<Passenger>{
+    return this.http.post<Passenger>(URL,passenger);
+  }
+  
   customOptions()  {
     const options = {
       headers: new HttpHeaders({

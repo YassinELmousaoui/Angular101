@@ -1,4 +1,4 @@
-interface child {
+export interface Child {
   name: string;
   age: number;
 }
@@ -7,7 +7,7 @@ export interface Passenger {
   fullName: string;
   checkedIn: boolean;
   checkInDate: number;
-  children?: child[];
+  children?: Child[];
 }
 
 export const passengers: Passenger[] = [
