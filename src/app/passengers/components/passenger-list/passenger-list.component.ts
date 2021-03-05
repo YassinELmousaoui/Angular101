@@ -3,33 +3,7 @@ import { Passenger } from "src/assets/passengers";
 
 @Component({
   selector: "passenger-list",
-  template: `<span
-      class="status"
-      [ngClass]="{
-        'checked-in': passenger.checkedIn,
-        'checked-out': !passenger.checkedIn
-      }"
-    ></span>
-    <input
-      type="text"
-      [value]="passenger.fullName"
-      *ngIf="editing"
-      (input)="handleFullNameEdit($event)"
-    />
-    <span *ngIf="!editing">{{ passenger.fullName }}</span>
-    <div class="checkin-date">
-      Check in date :
-      {{
-        passenger.checkInDate
-          ? (passenger.checkInDate | date: "y MMMM d" | uppercase)
-          : "not checked in"
-      }}
-    </div>
-    <div class="children">Children : {{ passenger.children?.length || 0 }}</div>
-    <div class="action">
-      <button (click)="toggleEdit()">{{ editing ? "done" : "edit" }}</button>
-      <button (click)="handleRemove(passenger.id)">remove</button>
-    </div>`,
+  templateUrl: `./passenger-list.component.html`,
   styleUrls: ["./passenger-list.component.css"],
 })
 export class PassengerListComponent {
@@ -47,10 +21,13 @@ export class PassengerListComponent {
   }
 
   handleFullNameEdit(event: any) {
+   
     this.passengerToEmit = { ...this.passenger, fullName: event.target.value };
+  
   }
 
   handleRemove(id: number) {
     this.remove.emit(id);
   }
+ 
 }

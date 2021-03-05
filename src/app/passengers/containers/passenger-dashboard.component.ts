@@ -8,12 +8,15 @@ import { PassengerService } from "../passenger.service";
   template: `
     <h3>AirLine passengers</h3>
     <passenger-counter [items]="passengers"></passenger-counter>
-    <passenger-list
-      *ngFor="let passenger of passengers"
-      [passenger]="passenger"
-      (edit)="editPassenger($event)"
-      (remove)="removePassenger($event)"
-    ></passenger-list>
+    <div class="list">
+      <passenger-list
+        *ngFor="let passenger of passengers"
+        [passenger]="passenger"
+        (edit)="editPassenger($event)"
+        (remove)="removePassenger($event)">
+      </passenger-list>
+    </div>
+    
   `,
   styleUrls: ["./passenger-dashboard.component.css"],
 })
@@ -23,16 +26,18 @@ export class PassengerDashboardComponent implements OnInit {
   constructor(private passengerService: PassengerService) {}
 
   ngOnInit() {
-    this.passengers = this.passengerService.getPassengers();
+    this.getPassengers();
   }
 
-  editPassenger(passenger: Passenger) {
-    this.passengers = this.passengers.map((p) => {
-      if (p.id === passenger.id) {
-        return Object.assign({}, p, passenger);
-      }
-      return p;
-    });
+  getPassengers(): void {
+    this.passengerService.getPassengers()
+        .subscribe(passengers => this.passengers = passengers);
+  }
+
+
+  editPassenger(passenger : Passenger) {
+    //console.log(p)
+    this.passengerService.editPassenger(passenger);
   }
 
   removePassenger(id: number) {

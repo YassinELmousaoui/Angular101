@@ -1,15 +1,51 @@
 .status {
-  display: block;
-  width: 10px;
-  height: 10px;
-  float: left;
+  position: relative;
+  width: 30px;
+  height: 30px;
+  float: right;
   border-radius: 50%;
-  margin: 5px 10px 0 0;
+  z-index: 10;
+  left:10px;
+  text-align: center;
+  padding: 5px;
+  font-size: 18px;
+  color: #000;
 }
 .status.checked-in {
   background-color: turquoise;
+  
 }
 
 .status.checked-out {
   background-color: tomato;
+}
+.listElement{
+  background-color:#0397a1;
+  margin: 10px auto 0px auto;
+  border-radius: 20px;
+  z-index: 2;
+  position: relative;
+  height: 100px;
+  padding: 5px 20px;
+  color: aliceblue;
+  text-align: center;
+  max-width: 300px;
+}
+.action{
+  z-index: 1;
+  top: -25px;
+  position: relative;
+  width: 100%;
+  display: inline-block;
+    
+}
+button{
+  height: 50px;
+  border-radius: 20px;
+  color:aliceblue;
+  font-size: larger;
+  background-color:#05354b;
+  font-weight: 600;
+  padding-top: 20px;
+  width: 100px;
 }

@@ -1,0 +1,9 @@
+passenger-list{
+    display: inline-block;
+    vertical-align: top;
+    margin: 0px 10px;
+}
+.list{
+    margin: 0px auto;
+    text-align: center;
+}
