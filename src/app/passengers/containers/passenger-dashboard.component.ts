@@ -1,4 +1,6 @@
+import { HttpErrorResponse } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
+import { Subscription } from "rxjs";
 
 import { Passenger } from "src/assets/passengers";
 import { PassengerService } from "../passenger.service";
@@ -22,7 +24,7 @@ import { PassengerService } from "../passenger.service";
 })
 export class PassengerDashboardComponent implements OnInit {
   public passengers;
-
+  public passengersSubscription$ : Subscription;
   constructor(private passengerService: PassengerService) {}
 
   ngOnInit() {
@@ -36,13 +38,28 @@ export class PassengerDashboardComponent implements OnInit {
 
 
   editPassenger(passenger : Passenger) {
-    //console.log(p)
-    this.passengerService.editPassenger(passenger);
+    
+    this.passengersSubscription$ = this.passengerService.editPassenger(passenger).subscribe((passenger)=>{
+      this.passengers = this.passengers.map((p) => {
+        if (p.id === passenger.id) {
+          return Object.assign({}, p, passenger);
+        }
+        return p;
+      })
+    },this.logErr);
   }
 
   removePassenger(id: number) {
-    this.passengers = this.passengers.filter(
-      (passenger) => passenger.id !== id
-    );
+    this.passengersSubscription$ =  this.passengerService
+      .removePassenger(id)
+      .subscribe(()=>{
+        this.passengers = this.passengers.filter(
+          (passenger) => passenger.id !== id
+        )
+      },this.logErr)
+    
   }
+
+  logErr = (error : HttpErrorResponse) => console.error(error);
+  
 }
