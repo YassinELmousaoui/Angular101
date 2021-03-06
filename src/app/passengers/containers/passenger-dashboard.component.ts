@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 
 import { Passenger } from "src/assets/passengers";
@@ -26,10 +27,15 @@ import { PassengerService } from "../passenger.service";
 export class PassengerDashboardComponent implements OnInit {
   public passengers;
   public passengersSubscription$ : Subscription;
-  constructor(private passengerService: PassengerService) {}
+  constructor(
+    private passengerService: PassengerService,
+    private router: Router
+    ) {}
 
   ngOnInit() {
     this.getPassengers();
+
+   
   }
 
   getPassengers(): void {

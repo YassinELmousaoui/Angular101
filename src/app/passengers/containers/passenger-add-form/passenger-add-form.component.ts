@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Passenger , Child } from 'src/assets/passengers';
 import { PassengerService } from '../../passenger.service';
@@ -13,8 +14,14 @@ export class PassengerAddFormComponent implements OnInit {
   public passengers ;
   public passengersSubscription$ : Subscription ;
   public childrensCount : Number[] =[];
-  constructor(private passengerService: PassengerService) { }
+  
+  constructor(
+    private passengerService: PassengerService,
+    private router: Router
+  ) {}
+  
   @ViewChild('myForm') form;
+  
   ngOnInit() {
     this.getPassengers();
   }
@@ -23,10 +30,7 @@ export class PassengerAddFormComponent implements OnInit {
     this.passengerService.getPassengers()
         .subscribe(passengers => this.passengers = passengers);
   }
-  ngAfterViewInit() {
-    console.log(this.form.controls)
   
-  }
   addChild(){
   this.childrensCount = this.childrensCount.concat(0)
   }
@@ -49,11 +53,14 @@ export class PassengerAddFormComponent implements OnInit {
     
       console.log( newPassenger)
     this.addPassenger(newPassenger)
+    this.router.navigate(['/dashboard'])
   }
 
   addPassenger(passenger:Passenger){
-    this.passengersSubscription$ = this.passengerService.addPassenger(passenger).subscribe((passenger)=>
-    {this.passengers=this.passengers.concat([passenger]);
+    this.passengersSubscription$ = this.passengerService
+    .addPassenger(passenger)
+    .subscribe((passenger)=>{
+      this.passengers.push(passenger);
     });
    }
 }
